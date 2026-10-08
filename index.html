@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f4f9ff">
+  <title>日本と世界の行事カレンダー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <section id="titleScreen" class="screen title-screen">
+    <div class="title-card">
+      <div class="title-globe">🌏</div>
+      <h1>にほんと せかいの<br>ぎょうじカレンダー</h1>
+      <p>にほんと がいこくの いちねんを くらべてみよう！</p>
+      <div class="title-flags title-country-names">にほん　アメリカ　タイ　ちゅうごく　インド　オーストラリア</div>
+      <button id="startBtn" class="btn primary huge">はじめる</button>
+      <button id="continueBtn" class="btn soft huge hidden">つづきから</button>
+    </div>
+  </section>
+
+  <section id="japanBuildScreen" class="screen work-screen hidden">
+    <header class="topbar">
+      <button id="jpBackBtn" class="back-btn">← もどる</button>
+      <div class="top-title">にほんの カレンダーを つくろう</div>
+      <div class="jp-top-actions"><div id="jpProgress" class="progress-pill"></div><button id="jpSkipBtn" class="skip-btn">スキップ</button></div>
+    </header>
+    <main class="single-build-stage">
+      <div class="month-hero"><span id="jpMonthLabel">1月（がつ）</span><small>この つきに カードを いれよう</small></div>
+      <div id="jpTarget" class="big-target jp-target" tabindex="0"></div>
+    </main>
+    <section class="single-tray-wrap japan-tray-wrap">
+      <div class="tray-label">てもとの カード　―　つかった カードは はいいろに なります</div>
+      <div id="jpTray" class="single-tray"></div>
+    </section>
+  </section>
+
+  <section id="monthSelectScreen" class="screen select-screen hidden">
+    <div class="ambient" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div></div>
+    <header class="topbar glass">
+      <button id="selectBackBtn" class="back-btn">← もどる</button>
+      <div id="selectTitle" class="top-title">つきを えらぼう</div>
+      <div id="selectProgress" class="progress-pill"></div>
+    </header>
+    <main class="month-select-main">
+      <div id="countryBanner" class="country-banner"></div>
+      <div id="monthGrid" class="month-grid"></div>
+      <div class="select-help">カードを いれたい つきを タップしてください</div>
+    </main>
+  </section>
+
+  <section id="monthDetailScreen" class="screen detail-screen hidden">
+    <header class="topbar">
+      <button id="detailBackBtn" class="back-btn">← つきを えらぶ</button>
+      <div id="detailTitle" class="top-title">1月（がつ）</div>
+      <div id="detailBadge" class="progress-pill"></div>
+    </header>
+    <main id="detailMain" class="detail-main"></main>
+    <section id="worldTrayWrap" class="world-tray-wrap">
+      <div class="tray-label">てもとの カード　―　つかった カードは はいいろに なります</div>
+      <div id="worldTray" class="single-tray"></div>
+    </section>
+  </section>
+
+  <section id="countryReviewScreen" class="screen country-review-screen hidden">
+    <header class="topbar glass review-topbar">
+      <div></div>
+      <div id="countryReviewTitle" class="top-title">カレンダー かんせい！</div>
+      <div id="countryReviewProgress" class="progress-pill"></div>
+    </header>
+    <main class="country-review-main">
+      <div id="countryReviewStage" class="country-review-stage"></div>
+    </main>
+  </section>
+
+  <section id="overviewScreen" class="screen overview-screen hidden">
+    <div id="overviewSeasonFx" class="overview-season-fx" aria-hidden="true"></div>
+    <header class="topbar glass overview-topbar">
+      <button id="overviewHomeBtn" class="back-btn">⌂ はじめ</button>
+      <div class="top-title">できあがった カレンダー</div>
+      <div id="overviewProgress" class="progress-pill">1月（がつ）</div>
+    </header>
+    <main class="overview-main sequential-overview">
+      <div id="overviewStage" class="overview-stage"></div>
+      <div class="overview-next-row">
+        <button id="overviewNextBtn" class="btn primary overview-next-btn">つぎへ →</button>
+      </div>
+    </main>
+  </section>
+
+  <div id="gachaOverlay" class="overlay gacha-overlay hidden">
+    <div class="modal-card gacha-card">
+      <div class="modal-title gacha-title">つぎは どこの くに？</div>
+      <div id="gachaMachine" class="gacha-machine-real" aria-label="ガチャマシン">
+        <div class="gacha-globe">
+          <div class="gacha-glass-shine"></div>
+          <div id="gachaChamber" class="gacha-chamber"></div>
+        </div>
+        <div class="gacha-neck"></div>
+        <div class="gacha-body">
+          <div class="gacha-body-label">せかい ガチャ</div>
+          <div class="gacha-handle-wrap"><div id="gachaHandle" class="gacha-handle"><span></span></div></div>
+          <div class="gacha-chute"><div id="gachaDropCapsule" class="gacha-drop-capsule hidden"><i></i><b></b></div></div>
+        </div>
+        <div class="gacha-feet"><span></span><span></span></div>
+      </div>
+      <div id="gachaReveal" class="gacha-reveal hidden" aria-live="polite">
+        <div id="gachaRevealCapsule" class="gacha-reveal-capsule">
+          <div class="capsule-half capsule-top"></div>
+          <div class="capsule-half capsule-bottom"></div>
+          <div id="gachaResultFlag" class="gacha-result-flag"></div>
+        </div>
+        <div id="gachaName" class="gacha-name">ガチャをまわそう！</div>
+      </div>
+      <button id="gachaBtn" class="btn primary huge gacha-main-btn">ガチャをまわす！</button>
+      <button id="gachaStartBtn" class="btn primary huge gacha-main-btn hidden">この くにを つくる！</button>
+      <div id="gachaRemaining" class="gacha-remaining"></div>
+      <div id="gachaProgress" class="gacha-progress" aria-label="くにの すすみぐあい"></div>
+      <div id="gachaConfetti" class="gacha-confetti" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div id="completeOverlay" class="overlay hidden">
+    <div class="modal-card complete-card">
+      <div id="completeIcon" class="complete-icon">🎉</div>
+      <div id="completeTitle" class="modal-title"></div>
+      <div id="completeText" class="complete-text"></div>
+      <button id="completeBtn" class="btn primary huge"></button>
+    </div>
+  </div>
+
+  <div id="resetOverlay" class="overlay hidden">
+    <div class="modal-card confirm-card">
+      <div class="modal-title">さいしょに もどりますか？</div>
+      <p>つくった カレンダーは きえます。</p>
+      <div class="confirm-row">
+        <button id="cancelResetBtn" class="btn soft">やめる</button>
+        <button id="resetBtn" class="btn danger">もどる</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="monthIntroOverlay" class="month-intro-overlay hidden" aria-hidden="true">
+    <div id="monthIntroText" class="month-intro-text">1月（がつ）</div>
+  </div>
+
+  <div id="celebrateLayer" class="celebrate-layer hidden" aria-hidden="true"><div id="celebrateText" class="celebrate-text"></div></div>
+  <div id="toast" class="toast hidden" role="status"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
